@@ -1,6 +1,6 @@
 package Day23;
 
-import java.util.PriorityQueue;
+import java.util.LinkedList;
 import java.util.Queue;
 
 /* https://www.hackerrank.com/challenges/30-binary-trees */
@@ -8,8 +8,22 @@ public class Solution {
 
 	static void levelOrder(Node root) {
 
-        Queue queue = new PriorityQueue();
+		if (root == null) {
+			System.out.println("Tree is empty");
+			return;
+		}
 
+		Queue<Node> queue = new LinkedList<>();
+		queue.offer(root);
+
+		while (!queue.isEmpty()) {
+			Node node = queue.poll();
+			System.out.printf("%d ", node.data);
+			if (node.left != null)
+				queue.offer(node.left);
+			if (node.right != null)
+				queue.offer(node.right);
+		}
 
 	}
 
@@ -36,5 +50,6 @@ public class Solution {
 			root = insert(root, i);
 		}
 		levelOrder(root);
+		/* output -> 3 2 5 1 4 7 */
 	}
 }
